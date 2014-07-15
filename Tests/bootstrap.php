@@ -1,9 +1,7 @@
 <?php
-if (!@$loader = include __DIR__ . '/../vendor/autoload.php') {
-    throw new RuntimeException('Install dependencies to run test suite.');
+if (!is_file($autoloadFile = __DIR__ . '/../vendor/autoload.php')) {
+    throw new \LogicException('Run "composer install --dev" to create autoloader.');
 }
 
-\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-
-error_reporting(E_ALL ^ E_NOTICE);
+require $autoloadFile;
 ?>
